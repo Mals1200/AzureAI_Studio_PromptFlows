@@ -1,5 +1,3 @@
-markdown
-
 # Azure AI Studio Prompt Flow README
 
 ## Overview
