@@ -87,15 +87,4 @@ os.environ['PF_DISABLE_TRACING'] = 'true'
 References
 For additional information and troubleshooting, refer to the following link:
 
-Azure ML Prompt Flow Q&A Model Discussion
-text
 
-
-### How to Paste into GitHub:
-
-1. Go to your GitHub repository.
-2. Create a new file or open an existing README file.
-3. Paste the above Markdown-formatted text into the editing area.
-4. Save the changes.
-
-This will render nicely in GitHub, providing clear and structured guidance for anyone access
