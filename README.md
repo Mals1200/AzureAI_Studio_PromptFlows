@@ -39,14 +39,30 @@ Add an extra list input named `chat_history` with an initial value of `[]`.
 # assistant:
 {{ item.outputs.answer }}
 {% endfor %}
+```
+
 Endpoint Testing Error - Temporary Solution
 If you encounter errors when testing the endpoint, add the following code to any Python node to disable tracing temporarily:
-
-python
-
+in any python script node
+```
 import os
 os.environ['PF_DISABLE_TRACING'] = 'true'
+```
 References
 For additional information and troubleshooting, refer to the following link:
 
 
+**consuming a chat input example Code**:
+```jinja
+    # Prepare chat history in the format expected by the API
+    chat_history_list = [
+        {"inputs": {"question": item["question"]}, "outputs": {"answer": item["answer"]}}
+        for item in chat_history
+    ]
+    
+    # Structure the data with 'question' and 'chat_history' as top-level keys
+    data = {
+        "question": question,
+        "chat_history": chat_history_list  # Send all previous questions and answers in the correct format
+    }
+```
