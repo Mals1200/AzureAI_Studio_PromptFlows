@@ -1,42 +1,79 @@
-Table of Contents
-Prerequisites
-Overview
-Step 1: Prepare Your Streamlit App
-Step 2: Set Up Your GitHub Repository
-Step 3: Create and Upload Files to GitHub
-Step 4: Configure Azure App Service
-Step 5: Set Up GitHub Actions for Deployment
-Step 6: Deploy Your App
-Step 7: Verify the Deployment
-Step 8: Troubleshooting
-Conclusion
-Prerequisites
+# Table of Contents
+
+1. [Prerequisites](#prerequisites)
+2. [Overview](#overview)
+3. [Step 1: Prepare Your Streamlit App](#step-1-prepare-your-streamlit-app)
+   - [1.1 Create Your Streamlit App](#11-create-your-streamlit-app)
+   - [1.2 Install Dependencies Locally (Optional)](#12-install-dependencies-locally-optional)
+   - [1.3 Prepare `requirements.txt`](#13-prepare-requirementstxt)
+4. [Step 2: Set Up Your GitHub Repository](#step-2-set-up-your-github-repository)
+   - [2.1 Create a New Repository on GitHub](#21-create-a-new-repository-on-github)
+5. [Step 3: Create and Upload Files to GitHub](#step-3-create-and-upload-files-to-github)
+   - [3.1 Upload `app.py`](#31-upload-apppy)
+   - [3.2 Create the `.streamlit` Directory and `config.toml`](#32-create-the-streamlit-directory-and-configtoml)
+   - [3.3 Upload `requirements.txt`](#33-upload-requirementstxt)
+   - [3.4 Create `startup.txt`](#34-create-startuptxt)
+   - [3.5 Create the GitHub Actions Workflow File](#35-create-the-github-actions-workflow-file)
+6. [Step 4: Configure Azure App Service](#step-4-configure-azure-app-service)
+   - [4.1 Create a New Web App](#41-create-a-new-web-app)
+   - [4.2 Configure Web App Settings](#42-configure-web-app-settings)
+   - [4.3 Review and Create](#43-review-and-create)
+   - [4.4 Configure Application Settings](#44-configure-application-settings)
+7. [Step 5: Set Up GitHub Actions for Deployment](#step-5-set-up-github-actions-for-deployment)
+   - [5.1 Obtain Azure Publish Profile](#51-obtain-azure-publish-profile)
+   - [5.2 Add Publish Profile to GitHub Secrets](#52-add-publish-profile-to-github-secrets)
+8. [Step 6: Deploy Your App](#step-6-deploy-your-app)
+   - [6.1 Trigger the Deployment](#61-trigger-the-deployment)
+   - [6.2 Monitor GitHub Actions](#62-monitor-github-actions)
+9. [Step 7: Verify the Deployment](#step-7-verify-the-deployment)
+   - [7.1 Access Your Web App](#71-access-your-web-app)
+   - [7.2 Test Your App](#72-test-your-app)
+10. [Step 8: Troubleshooting](#step-8-troubleshooting)
+    - [8.1 Application Error Page](#81-application-error-page)
+    - [8.2 Streamlit Command Not Found](#82-streamlit-command-not-found)
+    - [8.3 Virtual Environment Activation](#83-virtual-environment-activation)
+11. [Conclusion](#conclusion)
+12. [Additional Notes](#additional-notes)
+
+---
+
+## Prerequisites
+
 Before you begin, ensure you have the following:
 
-Azure Account: Access to an Azure subscription with permission to create resources.
-GitHub Account: A GitHub account to host your repository.
-Streamlit App Files: Your Streamlit app files ready on your local machine.
-Overview
+- **Azure Account**: Access to an Azure subscription with permission to create resources.
+- **GitHub Account**: A GitHub account to host your repository.
+- **Streamlit App Files**: Your Streamlit app files ready on your local machine.
+
+---
+
+## Overview
+
 This guide will help you deploy a Streamlit app to Azure App Service using GitHub (without Git commands) for continuous deployment. We'll:
 
-Organize your project files.
-Create and upload files to GitHub via the web interface.
-Set up Azure App Service.
-Configure GitHub Actions for automated deployment.
-Test and troubleshoot the deployment.
-Step 1: Prepare Your Streamlit App
-1.1 Create Your Streamlit App
-Develop your Streamlit app locally. For this guide, we'll assume your main app file is named app.py.
+- Organize your project files.
+- Create and upload files to GitHub via the web interface.
+- Set up Azure App Service.
+- Configure GitHub Actions for automated deployment.
+- Test and troubleshoot the deployment.
 
-Example app.py:
+---
 
-python
-Copy code
+## Step 1: Prepare Your Streamlit App
+
+### 1.1 Create Your Streamlit App
+
+Develop your Streamlit app locally. For this guide, we'll assume your main app file is named `app.py`.
+
+**Example `app.py`:**
+
+```python
 import streamlit as st
 
 st.title("My Streamlit App")
 
 st.write("Hello, world!")
+```
 1.2 Install Dependencies Locally (Optional)
 While we'll manage dependencies via requirements.txt, you can test your app locally.
 
