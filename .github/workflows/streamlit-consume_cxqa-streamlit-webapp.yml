@@ -3,7 +3,7 @@ name: Deploy to Azure Web App
 on:
   push:
     branches:
-      - streamlit-consume  # Ensure this matches your pushed branch
+      - Streamlit-consume  # Ensure this matches your pushed branch
 
 permissions:
   id-token: write  # This grants permission to request an ID token
