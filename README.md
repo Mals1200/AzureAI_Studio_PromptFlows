@@ -247,9 +247,9 @@ Configure the Startup Command
 - Scroll down to find the "Startup Command" field.
 
 - Enter the following command:
-  '''
+```
   streamlit run "Streamlit app/streamlit_app.py"
-  '''
+```
 
 bash
 Copy code
