@@ -71,7 +71,7 @@ st.markdown(
 )
 
 # Centered title
-st.title("Azure Chatbot")
+st.title("CXQA Chatbot")
 
 # Create a scrollable container for the chat history
 st.markdown('<div class="chat-container">', unsafe_allow_html=True)
@@ -109,7 +109,13 @@ def ask_question(question, chat_history):
     }
     
     body = str.encode(json.dumps(data))
-    headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + api_key}
+    
+    # Updated headers to use 'Ocp-Apim-Subscription-Key'
+    headers = {
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': api_key
+    }
+    
     req = urllib.request.Request(url, body, headers)
 
     try:
@@ -117,9 +123,10 @@ def ask_question(question, chat_history):
         result = json.loads(response.read().decode())
         return result
     except urllib.error.HTTPError as error:
+        error_message = error.read().decode('utf8', 'ignore')
         st.error(f"HTTP Error: {error.code}")
-        st.error(f"Error details: {error.read().decode('utf8', 'ignore')}")
-        return {"answer": "Error retrieving answer due to HTTP error."}
+        st.error(f"Error details: {error_message}")
+        return {"answer": f"Error retrieving answer due to HTTP error: {error_message}"}
     except urllib.error.URLError as error:
         st.error(f"Network Error: {error.reason}")
         return {"answer": "Error retrieving answer due to network error."}
