@@ -3,33 +3,40 @@ name: Deploy to Azure Web App
 on:
   push:
     branches:
-      - streamlit-consume  # Specify your branch here
+      - streamlit-consume  # Ensure this matches your pushed branch
+
+permissions:
+  id-token: write  # This grants permission to request an ID token
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}  # Use the GitHub Actions token for authentication
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}  # Ensure this secret contains the correct JSON credentials
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}          # Use your Azure Client ID secret
+        client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}  # Use your Azure Client Secret secret
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}          # Use your Azure Tenant ID secret
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}  # Make sure this is included
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.8'  # Specify the Python version you need
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12'  # Ensure your Python version is correct
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r "Streamlit app/requirements.txt"  # Correct path
 
-      - name: Deploy to Azure Web App
-        run: |
-          az webapp up --name cxqa-streamlit-webapp --resource-group cxqa-rg2 --sku F1
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: cxqa-streamlit-webapp
+        slot-name: production
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
