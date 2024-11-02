@@ -20,7 +20,7 @@ if 'chat_history' not in st.session_state:
     st.session_state.chat_history = []
 if 'last_message' not in st.session_state:
     st.session_state.last_message = ""
-if 'question' not in st.session_state:  # Initialize question input in session state
+if 'question' not in st.session_state:
     st.session_state.question = ""
 
 # Apply CSS to set background to white, center the title, and style input
@@ -109,11 +109,11 @@ def ask_question(question, chat_history):
     }
     
     body = str.encode(json.dumps(data))
-    
-    # Updated headers to use 'Ocp-Apim-Subscription-Key'
+
+    # Ensure the 'Authorization' header is correctly formatted
     headers = {
         'Content-Type': 'application/json',
-        'Ocp-Apim-Subscription-Key': api_key
+        'Authorization': 'Bearer ' + api_key.strip()
     }
     
     req = urllib.request.Request(url, body, headers)
