@@ -3,41 +3,29 @@ name: Deploy to Azure Web App
 on:
   push:
     branches:
-      - main
+      - Streamlit-consume  # or the branch you want to deploy from
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Python
+    - name: Setup Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.12'  # Use your specific Python version
+        python-version: '3.12'  # Specify your Python version
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r Streamlit\ app/requirements.txt
-
-    - name: Archive project files
-      run: zip -r python-app.zip Streamlit\ app/*
-
-    - name: Login to Azure
-      uses: azure/login@v1
-      with:
-        client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_CA62AC908A3649CF92F53A3222EF7B1B }}
-        tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_5F82160D38034A648B583FDBAE33628D }}
-        subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6A42E802A43A4706A288E1F15F763EC5 }}
+        pip install -r requirements.txt
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
         app-name: cxqa-streamlit-webapp
-        publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-        package: python-app.zip
-
-    - name: Logout from Azure
-      run: az logout
+        slot-name: production
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISH_PROFILE }}
