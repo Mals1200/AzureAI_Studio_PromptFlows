@@ -11,9 +11,9 @@ def allowSelfSignedHttps(allowed):
 
 allowSelfSignedHttps(True)
 
-# Endpoint and API key (Insert your actual endpoint URL and API key)
-url = 'https://your-endpoint-url.com/score'  # Replace with your endpoint URL
-api_key = 'YOUR_API_KEY'  # Replace with your actual API key
+# Endpoint and API key
+url = 'https://cxqa-genai-project-igysf.eastus.inference.ml.azure.com/score'
+api_key = 'GOukNWuYMiwzcHHos35MUIyHrrknWibM'
 
 # Initialize session state for storing chat history and the last message
 if 'chat_history' not in st.session_state:
@@ -71,7 +71,7 @@ st.markdown(
 )
 
 # Centered title
-st.title("CXQA Chatbot")
+st.title("Azure Chatbot")
 
 # Create a scrollable container for the chat history
 st.markdown('<div class="chat-container">', unsafe_allow_html=True)
@@ -109,13 +109,7 @@ def ask_question(question, chat_history):
     }
     
     body = str.encode(json.dumps(data))
-    
-    # Updated headers to use 'Ocp-Apim-Subscription-Key'
-    headers = {
-        'Content-Type': 'application/json',
-        'Ocp-Apim-Subscription-Key': api_key
-    }
-    
+    headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + api_key}
     req = urllib.request.Request(url, body, headers)
 
     try:
@@ -123,16 +117,16 @@ def ask_question(question, chat_history):
         result = json.loads(response.read().decode())
         return result
     except urllib.error.HTTPError as error:
-        error_message = error.read().decode('utf8', 'ignore')
         st.error(f"HTTP Error: {error.code}")
-        st.error(f"Error details: {error_message}")
-        return {"answer": f"Error retrieving answer due to HTTP error: {error_message}"}
+        st.error(f"Error details: {error.read().decode('utf8', 'ignore')}")
+        return {"answer": "Error retrieving answer due to HTTP error."}
     except urllib.error.URLError as error:
         st.error(f"Network Error: {error.reason}")
         return {"answer": "Error retrieving answer due to network error."}
     except Exception as e:
         st.error(f"Unexpected error: {e}")
         return {"answer": "Unexpected error occurred. Please check your configuration."}
+
 
 # Submit button to handle question submission
 if st.button("Submit"):
