@@ -115,7 +115,7 @@ numpy
 
 ## Step 2: Set Up Your GitHub Repository
 
-'''
+```
 your-repo-name/
 ├── .github/
 │   └── workflows/
@@ -125,7 +125,7 @@ your-repo-name/
 ├── app.py
 ├── requirements.txt
 └── (Optional) startup.txt
-'''
+```
 
 ### 2.1 Create a New Repository on GitHub
 
