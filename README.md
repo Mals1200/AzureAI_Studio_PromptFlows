@@ -214,7 +214,7 @@ Upload `requirements.txt`.
 
 Click "Commit changes".
 
-### 3.4 Create `startup.txt`
+### 3.4 Create `startup.txt` or configure azure
 
 Create a New File:
 
@@ -236,6 +236,27 @@ python -m streamlit run app.py --server.port 8000 --server.address 0.0.0.0
 - Commit directly to the main branch: Selected
 
 Click "Commit changes".
+
+(or)
+
+Configure the Startup Command
+- In your web app's menu, scroll down and click on "Configuration".
+
+- Click on the "General settings" tab.
+
+- Scroll down to find the "Startup Command" field.
+
+- Enter the following command:
+  '''
+  streamlit run "Streamlit app/streamlit_app.py"
+  '''
+
+bash
+Copy code
+streamlit run "Streamlit app/streamlit_app.py"
+Note: If your streamlit_app.py is directly inside the Streamlit app folder, this command points to it correctly.
+
+Click on "Save" at the top to apply the changes.
 
 ### 3.5 Create the GitHub Actions Workflow File
 
