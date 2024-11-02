@@ -3,7 +3,7 @@ name: Deploy to Azure Web App
 on:
   push:
     branches:
-      - streamlit-consume  # or the branch you want to deploy from 
+      - streamlit-consume  # Ensure this matches your pushed branch
 
 jobs:
   build-and-deploy:
@@ -16,12 +16,12 @@ jobs:
     - name: Setup Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.12'  # Specify your Python version
+        python-version: '3.12'  # Ensure your Python version is correct
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r "Streamlit app/requirements.txt"  # Path to requirements.txt
+        pip install -r "Streamlit app/requirements.txt"  # Correct path
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
