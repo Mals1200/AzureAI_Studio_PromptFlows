@@ -11,9 +11,9 @@ def allowSelfSignedHttps(allowed):
 
 allowSelfSignedHttps(True)
 
-# Endpoint and API key
-url = 'https://cxqa-genai-project-igysf.eastus.inference.ml.azure.com/score'
-api_key = 'GOukNWuYMiwzcHHos35MUIyHrrknWibM'
+# Endpoint and API key (Insert your actual endpoint URL and API key)
+url = 'https://your-endpoint-url.com/score'  # Replace with your endpoint URL
+api_key = 'YOUR_API_KEY'  # Replace with your actual API key
 
 # Initialize session state for storing chat history and the last message
 if 'chat_history' not in st.session_state:
@@ -28,7 +28,7 @@ st.markdown(
     """
     <style>
         /* Set entire page background to white */
-        .main {
+        .stApp {
             background-color: #ffffff;
         }
         /* Center the title and set its color */
@@ -126,7 +126,6 @@ def ask_question(question, chat_history):
     except Exception as e:
         st.error(f"Unexpected error: {e}")
         return {"answer": "Unexpected error occurred. Please check your configuration."}
-
 
 # Submit button to handle question submission
 if st.button("Submit"):
