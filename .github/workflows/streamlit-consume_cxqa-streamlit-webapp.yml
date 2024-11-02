@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
+          python-version: '3.x'  # Specify your Python version (e.g., '3.10')
 
       - name: Install dependencies
         run: |
@@ -25,10 +25,10 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
-          client-secret: ${{ secrets.AZUREAPPSERVICE_CLIENTSECRET }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_CA62AC908A3649CF92F53A3222EF7B1B }}
+          client-secret: ${{ secrets.AZUREAPPSERVICE_CLIENTSECRET }} # Add this secret in GitHub Secrets
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_5F82160D38034A648B583FDBAE33628D }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6A42E802A43A4706A288E1F15F763EC5 }}
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
